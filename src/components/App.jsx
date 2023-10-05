@@ -20,6 +20,14 @@ export class App extends Component{
         contacts: JSON.parse(localStorage.getItem('contacts'))
       })
     }
+  } 
+
+  componentDidUpdate = () => {
+    if (this.state.contacts.length !== 0) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+    
+    
   }
 
   formSubmitHandle = (data, id) => {
@@ -27,15 +35,6 @@ export class App extends Component{
       contacts: [{ id, ...data }, ...this.state.contacts],
     
     })
-    const newContacts = [{ id, ...data }, ...this.state.contacts];
-    
-    
-    if (newContacts.length === 0) {
-      localStorage.removeItem('contacts');
-      return;
-    }
-    
-    localStorage.setItem('contacts', JSON.stringify(newContacts));
 
   }
 
